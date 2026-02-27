@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Registration Panel 🔐</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      font-family: Arial;
+      background: #f4f6f8;
+      padding: 20px;
+    }
+
+    h1 { text-align: center; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: center;
+    }
+
+    th {
+      background: #66a6ff;
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+
+<h1>Admin – All Registrations 👀</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Name</th>
+      <th>Age</th>
+      <th>Parent Email</th>
+      <th>Time</th>
+    </tr>
+  </thead>
+  <tbody id="data"></tbody>
+</table>
+
+<script>
+  const data =
+    JSON.parse(localStorage.getItem("registrations")) || [];
+
+  const tbody = document.getElementById("data");
+
+  if (data.length === 0) {
+    tbody.innerHTML =
+      "<tr><td colspan='5'>No registrations found</td></tr>";
+  } else {
+    data.forEach((r, i) => {
+      tbody.innerHTML += `
+        <tr>
+          <td>${i + 1}</td>
+          <td>${r.name}</td>
+          <td>${r.age}</td>
+          <td>${r.email}</td>
+          <td>${r.time}</td>
+        </tr>
+      `;
+    });
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us</title>
+
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+<style>
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f4f7f6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+.contact-container {
+  background-color: #fff;
+  padding: 2em;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 500px;
+}
+h2 { text-align: center; }
+.form-group { margin-bottom: 1em; }
+label { font-weight: 600; }
+input, textarea {
+  width: 100%;
+  padding: 0.8em;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+button {
+  width: 100%;
+  padding: 1em;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+button:hover { background-color: #0056b3; }
+.success-message {
+  color: green;
+  text-align: center;
+  font-weight: bold;
+  margin-top: 1em;
+}
+</style>
+</head>
+
+<body>
+
+<div class="contact-container">
+  <form id="contactForm">
+    <h2>Contact Us 📧</h2>
+
+    <div class="form-group">
+      <label>Name</label>
+      <input type="text" id="name" required>
+    </div>
+
+    <div class="form-group">
+      <label>Email</label>
+      <input type="email" id="email" required>
+    </div>
+
+    <div class="form-group">
+      <label>Subject</label>
+      <input type="text" id="subject" required>
+    </div>
+
+    <div class="form-group">
+      <label>Message</label>
+      <textarea id="message" rows="5" required></textarea>
+    </div>
+
+    <button type="submit">Send Message</button>
+    <p id="successMessage" class="success-message"></p>
+  </form>
+</div>
+
+<script>
+(function(){
+  emailjs.init("YOUR_PUBLIC_KEY"); // 🔑
+})();
+
+document.getElementById("contactForm").addEventListener("submit", function(e){
+  e.preventDefault();
+
+  emailjs.send(
+    "YOUR_SERVICE_ID",
+    "YOUR_TEMPLATE_ID",
+    {
+      to_email: "jainsudhansh18@gmail.com", // ✅ FIXED RECEIVER
+      from_name: document.getElementById("name").value,
+      from_email: document.getElementById("email").value,
+      subject: document.getElementById("subject").value,
+      message: document.getElementById("message").value,
+    }
+  ).then(
+    function() {
+      document.getElementById("successMessage").textContent =
+        "✅ Message sent successfully to jainsudhansh18@gmail.com";
+      document.getElementById("contactForm").reset();
+    },
+    function(error) {
+      document.getElementById("successMessage").textContent =
+        "❌ Failed to send message. Try again.";
+    }
+  );
+});
+</script>
+
+</body>
+</html>
